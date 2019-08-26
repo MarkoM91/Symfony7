@@ -18,3 +18,8 @@ composer require symfony/apache-pack(I'm not using it)
 
 >composer require symfony/webpack-encore-bundle --dev
 npm install @symfony/webpack-encore --save-server
+
+//include Css, JS
+
+yarn encore dev
+yarn encore dev --watch
