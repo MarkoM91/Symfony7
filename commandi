@@ -1,0 +1,20 @@
+//install new project
+composer create-project symfony/skeleton Symfony7
+
+//install twig
+composer require twig
+
+//package needed to install  controller
+composer require maker
+composer require symfony/webpack-encore-bundle --dev
+composer require annotations
+php bin/console make:controller
+
+//apache server
+
+composer require symfony/apache-pack(I'm not using it)
+
+//webpack file
+
+>composer require symfony/webpack-encore-bundle --dev
+npm install @symfony/webpack-encore --save-server
