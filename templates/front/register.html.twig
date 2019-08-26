@@ -42,30 +42,37 @@
                           Valid Surname is Required
                       </div>
                   </div>
-              </div>
-              <div class="text-mb-3">
-                  <h4 class="text-mb-3">Password</h4>
-                  <form class="needs-validation" action="#" method="post" novalidate>
-                    <div class="row">
-                        <div class="mb-3">
-                            <label for="passw">Password</label>
-                            <input type="text" class="form-control" id="passw">
-                            <div class="invaid-feedback">
-                                Please Enter a valid Password
+                  <div class=" col-md-12 text-center mb-3">
+                      <form class="needs-validation" action="#" method="post" novalidate>
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label for="passw">Email</label>
+                                <input type="text" class="form-control" id="email">
+                                <div class="invaid-feedback">
+                                    Please Enter a valid email
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="passw">Password</label>
+                                <input type="text" class="form-control" id="passw">
+                                <div class="invaid-feedback">
+                                    Please Enter a valid Password
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="passw">Confirm Pssword</label>
+                                <input type="text" class="form-control" id="cpassw">
+                                <div class="invaid-feedback">
+                                    Please Enter a valid Password Confirmation
+                                </div>
                             </div>
                         </div>
-                        <div class=" mb-3">
-                            <label for="passw">Confirm Pssword</label>
-                            <input type="text" class="form-control" id="cpassw">
-                            <div class="invaid-feedback">
-                                Please Enter a valid Password Confirmation
-                            </div>
-                        </div>
-                    </div>
-                    <hr class="mb-4">
-                    <a href="{{ path('register') }}" class="btn btn-primary btn-lg btn-block"></a>
-                  </form>
+                        <hr class="mb-4">
+                        <a href="{{ path('register') }}" class="btn btn-primary btn-lg btn-block">Register</a>
+                      </form>
+                  </div>
               </div>
+
         </div>
 
     </div>
