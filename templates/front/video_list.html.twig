@@ -49,11 +49,33 @@
 
                     <div class="card-mb-4">
                         <div align ="center" class="embed-responsive embed-responsive-16by9">
-                            <iframe class="" src="https://player.vimeo.com/video/{{ video }}" width="" height=""></iframe>
+                            <iframe class="" src="https://player.vimeo.com/video/{{ video }}" frameboarder="0"></iframe>
                         </div>
                     </div>
-                    
-                  {% endfor %}
+
+                  <div class="card-body">
+                      <h3>Video Title</h3>
+                      <div class="d-flex flex-row justify-content-between align-items-center">
+                          <div class="btn-group">
+                              <i class="fa fa-thumbs-up"><small class="text-muted"></small></i>@nbsp;
+                              <i class="fa fa-thumbs-down"><small class="text-muted"></small></i>@nbsp;
+                              <button data-toggle="tooltip" data-placement="top"  title="Click To The video" type="button" name="button" class=" btn btn-primary btn-outline-sccess"><i class="fa fa-thumbs-up"></button>
+                              <button data-toggle="tooltip" data-placement="top"  title="Click To The video" type="button" name="button" class=" btn btn-primary btn-outline-sccess"><i class="fa fa-thumbs-up"></button>
+                              <div class="">
+                              <a href="{{ path('video_details') }}"></a>
+                                  Comments
+                              </div>
+                              <small class="text-muted">9 mins</small>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+                {% endfor %}
+                <div class="card-md-4">
+                    <div align ="center" class="embed-responsive embed-responsive-16by9">
+                        <iframe class="" src="https://player.vimeo.com/video/113716040" frameboarder="0"></iframe>
+                    </div>
+                </div>
                 </div>
             </div>
         </div>
