@@ -9,15 +9,23 @@
                 <span class="badge badge-secondary badge-pill">1</span>
             </h4>
             <ul class="list-group mb-3">
-                <li class="list-group-item d-flex justify-content-between lh-codensed"></li>
-                <div class="">
-                    <h6 class="my-0">Pro Plan</h6>
-                </div>
+                <li class="list-group-item d-flex justify-content-between lh-codensed">
+                  <div class="">
+                      <h6 class="my-0">Pro Plan</h6>
+                  </div>
+                  <span class="text-muted">$15</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-codensed">
+                  <div class="">
+                      <h6 class="my-0">PromoCode</h6>
+                  </div>
+                  <small class="text-muted">EXAMPLECODE</small>
+                </li>
             </ul>
         </div>
 
         <div class="col-md-8 order-md-1">
-            <h4 class="text-mb-3">Register first (free)</h4>
+            <h4 class="mb-3">Register first (free)</h4>
             <form class="needs-validation" action="#" method="post" novalidate>
               <div class="row">
                   <div class="col-md-6 mb-3">
@@ -27,31 +35,39 @@
                           Valid First Name is Required
                       </div>
                   </div>
+                  <div class="col-md-6 mb-3">
+                      <label for="firstName">Surname</label>
+                      <input type="text" class="form-control" id="Surname" name="" value="">
+                      <div class="invaid-feedback">
+                          Valid Surname is Required
+                      </div>
+                  </div>
               </div>
-            </form>
+              <div class="text-mb-3">
+                  <h4 class="text-mb-3">Password</h4>
+                  <form class="needs-validation" action="#" method="post" novalidate>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="passw">Password</label>
+                            <input type="text" class="form-control" id="passw">
+                            <div class="invaid-feedback">
+                                Please Enter a valid Password
+                            </div>
+                        </div>
+                        <div class=" mb-3">
+                            <label for="passw">Confirm Pssword</label>
+                            <input type="text" class="form-control" id="cpassw">
+                            <div class="invaid-feedback">
+                                Please Enter a valid Password Confirmation
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="mb-4">
+                    <a href="{{ path('register') }}" class="btn btn-primary btn-lg btn-block"></a>
+                  </form>
+              </div>
         </div>
-        <div class="text-mb-3">
-            <h4 class="text-mb-3">Password</h4>
-            <form class="needs-validation" action="#" method="post" novalidate>
-              <div class="row">
-                  <div class="col-md-6 mb-3">
-                      <label for="passw">Password</label>
-                      <input type="text" class="form-control" id="passw">
-                      <div class="invaid-feedback">
-                          Please Enter a valid Password
-                      </div>
-                  </div>
-                  <div class="col-md-6 mb-3">
-                      <label for="passw">Confirm Pssword</label>
-                      <input type="text" class="form-control" id="cpassw">
-                      <div class="invaid-feedback">
-                          Please Enter a valid Password Confirmation
-                      </div>
-                  </div>
 
-              </div>
-            </form>
-        </div>
     </div>
 
 
