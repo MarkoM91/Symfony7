@@ -60,7 +60,19 @@
       </nav>
     </div>
     {% endblock %}
-            {% block main %}{% endblock %}
+    {% block main %}{% endblock %}
+    {% block footer_links %}
+      <div class="col-6 col-md d-flex flex-row justify-content-between align-items-center">
+          <h5>About</h5>
+          <ul class="list-unstyled text-small d-flex flex-row justify-content-center align-items-center">
+              <li><a href="#">Team</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">Jobs</a></li>
+              <li><a href="#">Partners</a></li>
+              <li><a href="#">Terms</a></li>
+          </ul>
+      </div>
+    {% endblock %}
         </div>
         {% block javascripts %}{% endblock %}
     </body>
