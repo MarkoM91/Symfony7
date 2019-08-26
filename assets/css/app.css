@@ -10,9 +10,13 @@ body {
     background-color: lightgray;
 }
 
-.navbar {
+nav ul  {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+}
+
+li a {
+  color: white;
 }
