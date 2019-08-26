@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+{% set sample_videos = [289729765, 238902809, 150870038, 219727723, 289879647, 261379936, 289029793, 60594348, 290253648] %}
+
+<main role="main">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Category-Funny</h1>
+            <div class="btn-group">
+                <div class="dropdown ml-2">
+                    <button type="button" class="btn btn-primary dropdown-toggle" name="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SubCategories</button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <ul>
+                          <li><a href="#">Funny</a></li>
+                          <ul>
+                            <li><a href="#">Surprising</a></li>
+                            <li><a href="#">Exciting</a></li>
+                            <ul>
+                              <li><a href="#">Strange</a></li>
+                              <li><a href="#">Relaxing</a></li>
+                            </ul>
+                          </ul>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form-row align-items-center">
+                    <form action="#" method="post">
+                        <select class="custom-select" id="inlineFormCustomSelect" onchange="this.form.submit();">
+                            <option selected>Sort ...</option>
+                            <option value="1">Highest Rated</option>
+                            <option value="2">Title A-Z</option>
+                            <option value="3">Title Z-A</option>
+                        </select>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="album">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                {% for video in sample_videos %}
+
+                    <div class="card-mb-4">
+                        <div align ="center" class="embed-responsive embed-responsive-16by9">
+                            <iframe class="" src="https://player.vimeo.com/video/{{ video }}" width="" height=""></iframe>
+                        </div>
+                    </div>
+                    
+                  {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+{% endblock %}

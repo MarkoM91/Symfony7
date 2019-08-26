@@ -22,27 +22,27 @@
     <nav class="">
       <ul class="navbar-nav mr-auto d-flex flex-row justify-content-center align-items-center">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Funny <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="{{ path('video_list') }}">Funny <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Scary</a>
+          <a class="nav-link" href="{{ path('video_list') }}">Scary</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="{{ path('video_list') }}">
             Unbelievable
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Unbelievable</a>
+          <a class="nav-link" href="{{ path('video_list') }}">Unbelievable</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Inspirating</a>
+          <a class="nav-link" href="{{ path('video_list') }}">Inspirating</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Motivating</a>
+          <a class="nav-link" href="{{ path('video_list') }}">Motivating</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">MyAccount</a>
+          <a class="nav-link" href="{{ path('video_list') }}">MyAccount</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -74,6 +74,7 @@
       </div>
     {% endblock %}
         </div>
-        {% block javascripts %}{% endblock %}
+      {% block customjavascripts %}
+    {% endblock %}
     </body>
 </html>
