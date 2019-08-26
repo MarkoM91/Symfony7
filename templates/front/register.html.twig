@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+    <div class="row mt-5">
+        <div class="col-md-4 order-md-2 mb-4">
+            <h4 class="d-flex justify-content-center align-items-between">
+                <span class="text-muted">Your cart</span>
+                <span class="badge badge-secondary badge-pill">1</span>
+            </h4>
+            <ul class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between lh-codensed"></li>
+                <div class="">
+                    <h6 class="my-0">Pro Plan</h6>
+                </div>
+            </ul>
+        </div>
+
+        <div class="col-md-8 order-md-1">
+            <h4 class="text-mb-3">Register first (free)</h4>
+            <form class="needs-validation" action="#" method="post" novalidate>
+              <div class="row">
+                  <div class="col-md-6 mb-3">
+                      <label for="firstName">First Name</label>
+                      <input type="text" class="form-control" id="firstName" name="" value="">
+                      <div class="invaid-feedback">
+                          Valid First Name is Required
+                      </div>
+                  </div>
+              </div>
+            </form>
+        </div>
+        <div class="text-mb-3">
+            <h4 class="text-mb-3">Password</h4>
+            <form class="needs-validation" action="#" method="post" novalidate>
+              <div class="row">
+                  <div class="col-md-6 mb-3">
+                      <label for="passw">Password</label>
+                      <input type="text" class="form-control" id="passw">
+                      <div class="invaid-feedback">
+                          Please Enter a valid Password
+                      </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                      <label for="passw">Confirm Pssword</label>
+                      <input type="text" class="form-control" id="cpassw">
+                      <div class="invaid-feedback">
+                          Please Enter a valid Password Confirmation
+                      </div>
+                  </div>
+
+              </div>
+            </form>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block customjavascript %}
+<script>
+  (function() {
+
+    'use strict';
+
+
+    window.addEventListener('load', function() {
+
+      var forms = document.getElementsByClassName('needs-validation');
+
+      var validation = Array.prototype.filter.call(forms, function(form) {
+
+          form.addEventListener('click', function(event) {
+            if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.Propagation();
+            }
+
+            form.classList.add('was-validated');
+          }, false);
+      })
+    }, false);
+  })();
+
+  var password = document.getElementById('passw'), confirm_password = document.getElementById('cpassw');
+
+  function validatePassword() {
+    if (password.value != confirm.password.value) {
+      custom_password.setCustomValidity("Passwords Don't Match");
+    } else {
+      custom_password.setCustomValidity("");
+    }
+  }
+
+  password.onchange = validatePassword;
+  confirm_password.onkeyup = validatePassword;
+
+</script>
+
+
+{% endblock %}
