@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+{% block main %}
+<div class="pricing-header">
+  <h1 class="display-4">Pricing</h1>
+  <p class="lead">Watch the best videos on the planet. Choose a plan that is right for you. Downgrade or Upgrade at any time.</p>
+</div>
+
+<div class="container">
+    <div class="card-deck mb-3 text-center d-flex justify-content-center align-items-between">
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Free</h4>
+            </div>
+            <div class="card-body">
+                <h1 class="card-title pricing-card-title">$0 <small>/ mo</small></h1>
+                <ul class="list-unstyled">
+                    <li>Access for one month</li>
+                    <li>Help center access</li>
+                </ul>
+                <a role="button" href="register.php" class="btn btn-lg btn-outline-primary btn-block">Sign up for free</a>
+            </div>
+        </div>
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Pro</h4>
+            </div>
+            <div class="card-body">
+                <h1 class="card-title pricing-card-title">$15 <small>/ mo</small></h1>
+                    <ul class="list-unstyled">
+                        <li>Unlimited Access</li>
+                        <li>HD available</li>
+                        <li>No ads on videos</li>
+                        <li>Help center access</li>
+                    </ul>
+                    <a role="button" register="register.php" href="btn btn-lg btn-primary btn-block">Get Started</a>
+            </div>
+        </div>
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Enterprise</h4>
+        </div>
+              <div class="card-body">
+                  <h1 class="card-title pricing-card-title">$29 <small>/ mo</small></h1>
+                  <ul class="list-unstyled">
+                    <li>Unlimited Access</li>
+                    <li>Ultra HD available</li>
+                    <li>No ads on video</li>
+                    <li>Help center access</li>
+                    <li>Unlimited Live Events</li>
+                  </ul>
+                    <a role="button" register="register.php" href="btn btn-lg btn-primary btn-block">Get Started</a>
+              </div>
+          </div>
+
+    </div>
+</div>
+
+
+
+{% endblock %}
