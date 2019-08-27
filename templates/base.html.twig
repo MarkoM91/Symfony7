@@ -10,68 +10,67 @@
     </head>
     <body class="text-center">
         <div class="container-fluid">
-      {% block menu %}
-  <div class="nav d-flex flex-row justify-content-between  align-items-center">
-    <div class="mainD d-flex flex-row justify-content-center  align-items-center">
-        <h5><a href="{{ path('main_page') }}">Awesome Videos</a></h5>
-        <form class="form-inline my-2 my-lg-0" action="{{ path('search_results') }}" method="post">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-    </div>
-    <nav class="">
-      <ul class="navbar-nav mr-auto d-flex flex-row justify-content-center align-items-center">
-        <li class="nav-item active">
-          <a class="nav-link" href="{{ path('video_list') }}">Funny <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('video_list') }}">Scary</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link" href="{{ path('video_list') }}">
-            Unbelievable
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('video_list') }}">Unbelievable</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('video_list') }}">Inspirating</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('video_list') }}">Motivating</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('admin_main_page') }}">MyAccount</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link" href="{{ path('pricing') }}">
-            Sign Up
-          </a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link" href="{{ path('login') }}" >
-            Sign In
-          </a>
-          </div>
-        </li>
-      </ul>
+        {% block menu %}
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <h5 class="my-0 mr-md-auto font-weight-normal"><a href="index.php">Awesome Videos</a></h5>
 
-      </nav>
+        <form method="POST" class="form-inline my-0 mr-md-auto" action="{{path('search_results')}}">
+            <input class="form-control mr-sm-2" type="search" placeholder="video title" aria-label="Search video">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search video</button>
+        </form>
+
+        <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-dark" href="{{path('video_list')}}">Funny</a>
+            <a class="p-2 text-dark" href="{{path('video_list')}}">Scary</a>
+            <a class="p-2 text-dark" href="{{path('video_list')}}">Unbelievable</a>
+            <a class="p-2 text-dark" href="{{path('video_list')}}">Inspirational</a>
+            <a class="p-2 text-dark" href="{{path('video_list')}}">Motivating</a>
+            <a class="p-2 text-dark" href="{{path('admin_main_page')}}">My account</a>
+        </nav>
+        <a class="btn btn-outline-primary mr-2" href="{{path('pricing')}}">Sign up</a>
+        <a class="btn btn-outline-primary" href="{{path('login')}}">Sign in</a>
     </div>
     {% endblock %}
     {% block main %}{% endblock %}
     {% block footer_links %}
-      <div class="col-6 col-md d-flex flex-row justify-content-between align-items-center">
-          <h5>About</h5>
-          <ul class="list-unstyled text-small d-flex flex-row justify-content-center align-items-center">
-              <li><a href="#">Team</a></li>
-              <li><a href="#">Contact</a></li>
-              <li><a href="#">Jobs</a></li>
-              <li><a href="#">Partners</a></li>
-              <li><a href="#">Terms</a></li>
-          </ul>
-      </div>
+    <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+            <div class="col-12 col-md">
+                <small class="d-block mb-3 text-muted">&copy; 2017-2018</small>
+            </div>
+            <div class="col-6 col-md">
+                <h5>Features</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="text-muted" href="#">Live streaming</a></li>
+                    <li><a class="text-muted" href="#">Video player</a></li>
+                    <li><a class="text-muted" href="#">Monetization</a></li>
+                    <li><a class="text-muted" href="#">Hosting</a></li>
+                    <li><a class="text-muted" href="#">Privacy</a></li>
+                    <li><a class="text-muted" href="#">Analytics</a></li>
+                    <li><a class="text-muted" href="#">Speed test</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-md">
+                <h5>Resources</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="text-muted" href="#">Help center</a></li>
+                    <li><a class="text-muted" href="#">Blog</a></li>
+                    <li><a class="text-muted" href="#">Guidelines</a></li>
+                    <li><a class="text-muted" href="#">Developers</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-md">
+                <h5>About</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="text-muted" href="#">Team</a></li>
+                    <li><a class="text-muted" href="#">Contact</a></li>
+                    <li><a class="text-muted" href="#">Jobs</a></li>
+                    <li><a class="text-muted" href="#">Partners</a></li>
+                    <li><a class="text-muted" href="#">Terms</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
     {% endblock %}
         </div>
         <script>
