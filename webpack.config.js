@@ -12,7 +12,7 @@ Encore
 
     .setPublicPath('/build')
 
-    .addEntry('app', './assets/js/app.js')
+    .addEntry('js/app.js', './assets/js/app.js')
     .addStyleEntry('css/dashboard', '[./assets/css/dashboard.css]')
     .addStyleEntry('css/login', '[./assets/css/login.css]')
 

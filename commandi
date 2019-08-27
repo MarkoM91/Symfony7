@@ -23,3 +23,15 @@ npm install @symfony/webpack-encore --save-server
 
 yarn encore dev
 yarn encore dev --watch
+
+//Database
+
+composer require orm //install doctrine(database handler, used by Symfony to communicate with the DB)  package
+
+php bin/console make:entity //create entity
+
+php bin/console doctrine:database:create //create database;
+
+php bin/console make:migration //create a migration
+
+php bin/console doctrine:migrations:migrate //migrate on the DB
