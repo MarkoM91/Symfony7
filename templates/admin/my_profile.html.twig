@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+<h2>My Profile<small><a onclick="return confirm('are you sure ?');" href="#">delete account</a></small></h2>
+
+<p class="text-left">My Plan -Pro. <a onclick="return confirm('are you sure ? This cannot be undone. Remember also to cancel payment in  your PayPal.');" href="#">cancel plan</a></p>
+
+<form class="mt-5" action="#" method="post">
+    <div class="form-group">
+        <label class="vimeoapikey">Vimeo API Key</label>
+    </div>
+</form>
+
+{% endblock %}
