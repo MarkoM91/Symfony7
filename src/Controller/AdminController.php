@@ -19,4 +19,36 @@ class AdminController extends AbstractController
     {
         return $this->render('admin/my_profile.html.twig');
     }
+
+    /**
+     * @Route("/categories", name="categories")
+     */
+    public function categories()
+    {
+        return $this->render('admin/categories.html.twig');
+    }
+
+    /**
+     * @Route("/videos", name="videos")
+     */
+    public function videos()
+    {
+        return $this->render('admin/videos.html.twig');
+    }
+
+    /**
+     * @Route("/upload", name="upload")
+     */
+    public function upload()
+    {
+        return $this->render('admin/upload.html.twig');
+    }
+
+    /**
+     * @Route("/users", name="users")
+     */
+    public function users()
+    {
+        return $this->render('admin/users.html.twig');
+    }
 }
