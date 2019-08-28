@@ -64,3 +64,11 @@ composer require symfony/debug-bundle --dev
 composer require form validator
 
 php bin/console make:form CategoryType
+
+//testing
+
+php bin/console make:unit-test
+
+composer require  --dev symfony/phpunit-bridge
+
+php bin/phpunit
