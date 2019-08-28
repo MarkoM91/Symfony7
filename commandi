@@ -57,3 +57,10 @@ composer require symfony/var-dumper
 composer require symfony/profiler-pack --dev
 
 composer require symfony/debug-bundle --dev
+
+
+//make form
+
+composer require form validator
+
+php bin/console make:form CategoryType
