@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-
+use App\Entity\Category;
 
 /**
  * @Route("/admin")
@@ -34,6 +34,17 @@ class AdminController extends AbstractController
     public function edit_categories()
     {
         return $this->render('admin/edit_category.html.twig');
+    }
+
+    /**
+     * @Route("/delete_category/{id}", name="delete_category")
+     */
+    public function delete_category(Category $category) //param converter symfony will automatically find
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($category);
+        $em->flush();
+        return $this->redirectToRoute('categories');
     }
 
     /**
