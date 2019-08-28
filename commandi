@@ -37,7 +37,7 @@ php bin/console make:migration //create a migration
 php bin/console doctrine:migrations:migrate //migrate on the DB
 
 
-//put fake, temporary,  data in the DB
+/Put fake, temporary,  data in the DB
 
 composer require orm-fixtures --dev
 
@@ -48,3 +48,12 @@ php bin/console doctrine:fixtures:load //load it
 php bin/console doctrine:schema:drop -n -q --force --full-database && del src\Migrations\*.php && php bin/console make:migration && php bin/console doctrine:migrations:migrate -n -q //reset the entire DB
 
 singleton restricts instantiation of a class to one "single";
+
+
+//Error controll/debugger
+
+composer require symfony/var-dumper
+
+composer require symfony/profiler-pack --dev
+
+composer require symfony/debug-bundle --dev

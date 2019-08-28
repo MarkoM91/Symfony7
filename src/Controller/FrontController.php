@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Category;
+use App\Utils\CategoryTreeFrontPage;
 
 class FrontController extends AbstractController
 {
@@ -19,9 +20,9 @@ class FrontController extends AbstractController
     /**
      * @Route("/video-list/category/{categoryname}, {id}", name="video_list")
      */
-    public function videoList($id, CategoryFrontPage $categories)
+    public function videoList($id, CategoryTreeFrontPage $categories)
     {
-        dump($categories);
+        dump($categories);die;
         return $this->render('front/video_list.html.twig');
     }
 

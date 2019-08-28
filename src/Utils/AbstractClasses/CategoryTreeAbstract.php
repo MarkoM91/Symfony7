@@ -20,9 +20,25 @@ namespace App\Utils\AbstractClasses;
 
      abstract public function getCategoryList(array $categories_array);
 
+     public function buildTree(int $parent_id = null) : array
+     {
+        foreach ($this->categoriesArrayFromDb as $categories)
+        {
+
+          if ($category['parent_id'] == $parent_id)
+          {
+             $childern = $this->buildTree($category['id']);
+             if ($childern)
+             {
+               $category ['children'] = $children;
+             }
+          }
+        }
+     }
+
      private function getCategories(): array
      {
-         if(self::$dbconnection) //I am using singleton to create single mysql connections and using it across multiple objects 
+         if(self::$dbconnection) //I am using singleton to create single mysql connections and using it across multiple objects
          {
              return self::$dbconnection;
          }
