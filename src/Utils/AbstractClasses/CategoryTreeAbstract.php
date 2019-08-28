@@ -22,7 +22,7 @@ namespace App\Utils\AbstractClasses;
 
      private function getCategories(): array
      {
-         if(self::$dbconnection)
+         if(self::$dbconnection) //I am using singleton to create single mysql connections and using it across multiple objects 
          {
              return self::$dbconnection;
          }

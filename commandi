@@ -46,3 +46,5 @@ php bin/console make:fixtures
 php bin/console doctrine:fixtures:load //load it
 
 php bin/console doctrine:schema:drop -n -q --force --full-database && del src\Migrations\*.php && php bin/console make:migration && php bin/console doctrine:migrations:migrate -n -q //reset the entire DB
+
+singleton restricts instantiation of a class to one "single";
