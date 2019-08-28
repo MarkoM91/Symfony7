@@ -9,6 +9,7 @@ namespace App\Utils\AbstractClasses;
  abstract class CategoryTreeAbstract {
 
      public $categoriesArrayFromDb;
+     public $categorylist;
      protected static $dbconnection; //now I'm going to create a singleton pattern to query my DB only once, with only one execution of php script;
 
      public function __construct(EntityManagerInterface $entitymanager, UrlGeneratorInterface $urlgenerator)
@@ -22,18 +23,21 @@ namespace App\Utils\AbstractClasses;
 
      public function buildTree(int $parent_id = null) : array
      {
-        foreach ($this->categoriesArrayFromDb as $categories)
+        $subcategory = [];
+        foreach ($this->categoriesArrayFromDb as $category)
         {
 
           if ($category['parent_id'] == $parent_id)
           {
-             $childern = $this->buildTree($category['id']);
-             if ($childern)
+             $children = $this->buildTree($category['id']);
+             if ($children)
              {
                $category ['children'] = $children;
              }
+             $subcategory[] = $category;
           }
         }
+        return $subcategory;
      }
 
      private function getCategories(): array
