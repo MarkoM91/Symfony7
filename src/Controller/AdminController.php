@@ -38,6 +38,8 @@ class AdminController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
+
+             //dd('valid');
             $category->setName($request->request->get('category')['name']);
 
             $repository = $this->getDoctrine()->getRepository(Category::class);
