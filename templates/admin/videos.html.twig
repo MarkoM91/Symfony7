@@ -23,12 +23,8 @@
         <td>
             <form action="#" method="POST">
                 <select onchange="this.form.submit();">
-                <option selected>Parent...</option>
-                <option value="1">Funny</option>
-                <option value="1">--For kids</option>
-                <option value="1">----For adults</option>
-                <option value="2">Scary</option>
-                <option value="3">Motivating</option>
+                  <option selected>Parent...</option>
+
                 </select>
             </form>
         </td>
@@ -44,7 +40,7 @@
     function delete_video(e,video_id)
     {
         e.preventDefault();
-        if(confirm('Are you sure?')) 
+        if(confirm('Are you sure?'))
         {
             console.log(id);
             // delete video from vimeo
@@ -55,4 +51,3 @@
 {% endblock %}
 
 {% endblock %}
-
