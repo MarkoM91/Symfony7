@@ -17,6 +17,22 @@ security:
         main:
             anonymous: true
 
+            form_login:
+                check_path: login #route
+                login_path: login #
+                csrf_token_generator: security.csrf.token_manager #secure login against hacker attack;
+                default_target_path: admin_main_page #the page I want to be redirected too after being succesfully logged in
+                username_parameter: _email
+            logout:
+                path: logout
+                target: main_page #route you get redirect
+            remember_me:
+                secret:   '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
+                path: / #our cookies are valid in our entire website on every webpage
+                # where to redirect after logout
+                # target: app_any_route
+
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 
