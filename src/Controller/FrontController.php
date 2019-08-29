@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Category;
+use App\Entity\Video;
 use App\Utils\CategoryTreeFrontPage;
 
 class FrontController extends AbstractController
@@ -22,10 +23,14 @@ class FrontController extends AbstractController
      */
     public function videoList($id, CategoryTreeFrontPage $categories)
     {
+        $videos = $this->getDoctrine()
+        ->getRepository(Video::class)
+        ->findAll();
+
         $categories->getCategoryListAndParent($id);
-        dd($categories);
         return $this->render('front/video_list.html.twig',[
-            'subcategories' => $categories
+            'subcategories' => $categories,
+            'videos'=>$videos
         ]);
     }
 
@@ -38,7 +43,7 @@ class FrontController extends AbstractController
     }
 
     /**
-      * @Route("/search_results", name="search_results", methods={"POST"})
+     * @Route("/search-results", methods={"POST"}, name="search_results")
      */
     public function searchResults()
     {
@@ -46,7 +51,7 @@ class FrontController extends AbstractController
     }
 
     /**
-      * @Route("/pricing", name="pricing")
+     * @Route("/pricing", name="pricing")
      */
     public function pricing()
     {
@@ -54,7 +59,7 @@ class FrontController extends AbstractController
     }
 
     /**
-      * @Route("/register", name="register")
+     * @Route("/register", name="register")
      */
     public function register()
     {
@@ -62,7 +67,7 @@ class FrontController extends AbstractController
     }
 
     /**
-      * @Route("/login", name="login")
+     * @Route("/login", name="login")
      */
     public function login()
     {
@@ -70,19 +75,20 @@ class FrontController extends AbstractController
     }
 
     /**
-      * @Route("/payment", name="payment")
+     * @Route("/payment", name="payment")
      */
     public function payment()
     {
         return $this->render('front/payment.html.twig');
     }
 
-    /**
-      * @Route("/payment", name="payment")
-     */
     public function mainCategories()
     {
-        $categories = $this->getDoctrine()->getRepository(Category::class)->findBy(['parent' => null], ['name' => 'ASC']);
-        return $this->render('front/_main_categories.html.twig', compact('categories'));
+        $categories = $this->getDoctrine()
+        ->getRepository(Category::class)
+        ->findBy(['parent'=>null], ['name'=>'ASC']);
+        return $this->render('front/_main_categories.html.twig',[
+            'categories'=>$categories
+        ]);
     }
 }
