@@ -104,9 +104,7 @@ class FrontController extends AbstractController
      */
     public function logout(AuthenticationUtils $helper): void
     {
-        return $this->render('front/login.html.twig', [
-          'error' => $helper->getLastAuthenticationError() //in order to display errors on the view;
-        ]);
+        throw new \Exception('This should never reached');
     }
 
     /**

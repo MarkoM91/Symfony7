@@ -22,7 +22,7 @@ security:
                 login_path: login #
                 csrf_token_generator: security.csrf.token_manager #secure login against hacker attack;
                 default_target_path: admin_main_page #the page I want to be redirected too after being succesfully logged in
-                username_parameter: _email
+                username_parameter: _email # name="email"
             logout:
                 path: logout
                 target: main_page #route you get redirect
