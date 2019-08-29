@@ -62,7 +62,7 @@ class CategoryTreeFrontPage extends CategoryTreeAbstract {
         }
     }
 
-    public function getChildsIds(int $parent): array
+    public function getChildIds(int $parent): array
     {
         static $ids = [];
         foreach ($this->categoriesArrayFromDb as  $val)
@@ -70,7 +70,7 @@ class CategoryTreeFrontPage extends CategoryTreeAbstract {
            if ($val['parent_id'] == $parent)
            {
                 $ids[] = $val['id']. ',';
-                $this->getChildsIds($val['id']);
+                $this->getChildIds($val['id']);
            }
         }
 

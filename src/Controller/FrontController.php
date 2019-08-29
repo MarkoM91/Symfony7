@@ -25,7 +25,7 @@ class FrontController extends AbstractController
     {
 
         $categories->getCategoryListAndParent($id);
-        $ids = $categories->getChildsIds($id);
+        $ids = $categories->getChildIds($id);
         array_push($ids, $id);
         $videos = $this->getDoctrine()
         ->getRepository(Video::class)
