@@ -23,6 +23,10 @@ class FrontController extends AbstractController
      */
     public function videoList($id, $page, CategoryTreeFrontPage $categories)
     {
+
+        $categories->getCategoryListAndParent($id);
+        $ids = $categories->getChildsIds($id);
+        array_push($ids, $id);
         $videos = $this->getDoctrine()
         ->getRepository(Video::class)
         ->findAllPaginated($page);//method created in the repository

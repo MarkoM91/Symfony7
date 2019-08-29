@@ -86,3 +86,7 @@ composer require --dev symfony/test-pack
 // pagination
 
 composer require knplabs/knp-paginator-bundle
+
+//cache clearing
+
+php bin/console cache:clear
