@@ -72,3 +72,12 @@ php bin/console make:unit-test
 composer require  --dev symfony/phpunit-bridge
 
 php bin/phpunit
+
+// functional testing
+
+composer require browser-kit css-selector
+         panther --dev
+
+php bin/console make:functional-test
+
+composer require --dev symfony/test-pack         
