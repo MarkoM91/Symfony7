@@ -2,7 +2,6 @@
 
 {% block main %}
 
-{% set sample_videos = [289729765,238902809,150870038,219727723,289879647,261379936,289029793,60594348,290253648] %}
 
 <main role="main">
 
@@ -61,6 +60,7 @@
         </ul>
     </nav>
 
+    {{ knp_pagination_render(videos) }}
 
 </main>
 {% endblock %}

@@ -80,4 +80,9 @@ composer require browser-kit css-selector
 
 php bin/console make:functional-test
 
-composer require --dev symfony/test-pack         
+composer require --dev symfony/test-pack
+
+
+// pagination
+
+composer require knplabs/knp-paginator-bundle
