@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block main %}
 {% block menu %}{% endblock %}
 
 {% block customstylesheets %}
     <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}">
 {% endblock %}
+
+{% block main %}
 
 <form class="form-signin" action="{{ path('login') }}" method="post">
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
@@ -15,11 +16,12 @@
     <input type="password" id="inputPassword" class="form-control" placelholder="Password " required>
     <div class="checkbox mb-3">
         <label for="">
-            <input type="checkbox" name="" value="remember-me">Remember Me
+            <input type="checkbox" name="_remember_me">Remember Me
         </label>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit" name="button">Sign In</button>
     <p class="mt-5 mb-3 text-muted">&copy; 2017-2018  <a href="{{ path('main_page') }}">Main Page</a></p>
+    <input type="hidden" name="_csrf_token" value="csrf_token('authenticate')">Remember Me
 </form>
 
 {% endblock %}
