@@ -21,7 +21,7 @@ class VideoRepository extends ServiceEntityRepository
         $this->paginator = $paginator;
     }
 
-    public function findByChildIds(array $value, int $page, ?string $sort_method)
+    public function findByChildIds($value, int $page, ?string $sort_method)
     {
         $sort_method = $sort_method != 'rating' ? $sort_method : 'ASC'; // tmp
 
