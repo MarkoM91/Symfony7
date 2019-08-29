@@ -2,11 +2,13 @@
 {% block menu %}{% endblock %}
 {% block mainadmin %}
 <h2>My Profile<small><a onclick="return confirm('are you sure ?');" href="#">delete account</a></small></h2>
-
+{% if not is_granted('ROLE_ADMIN') %}
 <p class="text-left">My Plan -Pro. <a onclick="return confirm('are you sure ? This cannot be undone. Remember also to cancel payment in  your PayPal.');" href="#">cancel plan</a></p>
 <p class="text-left">My Plan -Free. <a href="{{ path('payment') }}">get paid plan</a></p>
-
+{% endif %}
 <form class="mt-5" action="#" method="post">
+
+  {% if is_granted('ROLE_ADMIN') %}
     <div class="form-group">
         <label class="vimeoapikey">Vimeo API Key</label>
         <input required type="text" class="form-control is-invalid" id="vimeoapikey" placeholder="Enter api key">
@@ -14,6 +16,7 @@
             Please provide api key
         </div>
     </div>
+      {% endif %}
     <div class="form-group">
         <label class="name">First Name</label>
         <input required type="text" class="form-control is-invalid" id="name" placeholder="Your name">
