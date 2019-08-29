@@ -90,3 +90,13 @@ composer require knplabs/knp-paginator-bundle
 //cache clearing
 
 php bin/console cache:clear
+
+//login
+
+composer require security;
+
+php bin/console make:user
+
+* reset DB
+
+*fixtures
