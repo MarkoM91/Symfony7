@@ -4,6 +4,7 @@ namespace App\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use App\Entity\Category;
+use App\Entity\Rollback;
 
 class AdminControllerCategoriesTest extends WebTestCase
 {

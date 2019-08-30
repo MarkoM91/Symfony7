@@ -70,8 +70,8 @@ class FrontController extends AbstractController
 
             $comment = new Comment();
             $comment->setContent($request->request->get('comment'));
-            $comment->setUser($this->getUser());
-            $comment->setVideo($video);
+            $comment->setUser($this->getUser()); //user the comments belongs to;
+            $comment->setVideo($video); //symfony will find the video using parama converter
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
