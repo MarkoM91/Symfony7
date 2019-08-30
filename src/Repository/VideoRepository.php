@@ -30,7 +30,7 @@ class VideoRepository extends ServiceEntityRepository
                     ->leftJoin('v.comments', 'c')
                     ->leftJoin('v.usersThatLike', 'l')
                     ->leftJoin('v.usersThatDontLike', 'd')
-                    ->addSelect('c','l','d')
+                    ->addSelect('c','l','d') //related command to this video will be taken just here
                     ->setParameter('val', $value)
                     ->orderBy('v.title', $sort_method);
         }
@@ -38,14 +38,15 @@ class VideoRepository extends ServiceEntityRepository
         {
             $dbquery =  $this->createQueryBuilder('v')
             ->addSelect('COUNT(l) AS HIDDEN likes') // bez hidden zwróci array: count + entity
-            ->leftJoin('v.usersThatLike', 'l')
+            ->leftJoin('v.usersThatLike', 'l') //if video liked liked add count l
             ->andWhere('v.category IN (:val)')
             ->setParameter('val', $value)
             ->groupBy('v')
             ->orderBy('likes', 'DESC');
         }
 
-        $dbquery->getQuery();
+        $d = $dbquery->getQuery();
+        dd($d->getResult());
 
 
         $pagination = $this->paginator->paginate($dbquery, $page, Video::perPage);
