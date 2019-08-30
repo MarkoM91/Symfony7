@@ -23,21 +23,38 @@ class VideoRepository extends ServiceEntityRepository
 
     public function findByChildIds(array $value, int $page, ?string $sort_method)
     {
-        $sort_method = $sort_method != 'rating' ? $sort_method : 'ASC'; // tmp
-
+        if($sort_method != 'rating')
+        {
         $dbquery = $this->createQueryBuilder('v')
+                    ->andWhere('v.category IN (:val)')
+                    ->leftJoin('v.comments', 'c')
+                    ->leftJoin('v.usersThatLike', 'l')
+                    ->leftJoin('v.usersThatDontLike', 'd')
+                    ->addSelect('c','l','d')
+                    ->setParameter('val', $value)
+                    ->orderBy('v.title', $sort_method);
+        }
+        else
+        {
+            $dbquery =  $this->createQueryBuilder('v')
+            ->addSelect('COUNT(l) AS HIDDEN likes') // bez hidden zwróci array: count + entity
+            ->leftJoin('v.usersThatLike', 'l')
             ->andWhere('v.category IN (:val)')
             ->setParameter('val', $value)
-            ->orderBy('v.title', $sort_method)
-            ->getQuery();
+            ->groupBy('v')
+            ->orderBy('likes', 'DESC');
+        }
 
-        $pagination = $this->paginator->paginate($dbquery, $page, 5);
+        $dbquery->getQuery();
+
+
+        $pagination = $this->paginator->paginate($dbquery, $page, Video::perPage);
         return $pagination;
     }
 
     public function findByTitle(string $query, int $page, ?string $sort_method)
     {
-        $sort_method = $sort_method != 'rating' ? $sort_method : 'ASC'; // tmp
+        $sort_method = $sort_method != 'rating' ? $sort_method : 'ASC'; // tmp rappresent the value of the select html form
 
         $querybuilder = $this->createQueryBuilder('v');
         $searchTerms = $this->prepareQuery($query);
@@ -58,11 +75,10 @@ class VideoRepository extends ServiceEntityRepository
 
     public function videoDetails($id)
     {
-        //dump($repo->videoDetails($video));
         return $this->createQueryBuilder('v')
             ->leftJoin('v.comments', 'c')
             ->leftJoin('c.user', 'u')
-            ->addSelect('c', 'u') //responsible fo eager loading, with one query I will have video.title,  and all of its comments;
+            ->addSelect('c', 'u')
             ->where('v.id = :id')
             ->setParameter('id', $id)
             ->getQuery()

@@ -231,6 +231,7 @@ class FrontController extends AbstractController
         $em->persist($user);
         $em->flush();
         return 'liked';
+        //method used in Controller in Symfony;
     }
     private function dislikeVideo($video)
     {
