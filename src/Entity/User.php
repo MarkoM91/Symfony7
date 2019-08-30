@@ -9,12 +9,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-
 /**
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @ORM\Table(name="users")
- * @UniqueEntity("email")
- */
+    * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+    * @ORM\Table(name="users")
+    * @UniqueEntity("email")
+*/
 class User implements UserInterface
 {
     /**
@@ -25,9 +24,9 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @Assert\NotBlank(message = "The name of category is required")
-     * @Assert\Email()
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank(message = "Please enter a valid email address.")
+     *  @Assert\Email()
      */
     private $email;
 
@@ -39,14 +38,20 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\NotBlank(message = "The name of category is required")
+     * @Assert\NotBlank(message = "Please enter a valid password")
      * @Assert\Length(max=4096)
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=45)
-     * @Assert\NotBlank(message = "The name of category is required")
+     * @Assert\NotBlank(message = "Valid first name is required.")
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=45)
+     * @Assert\NotBlank(message = "Valid last name is required.")
      */
     private $last_name;
 
@@ -56,12 +61,8 @@ class User implements UserInterface
     private $vimeo_api_key;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
-
-    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Video", mappedBy="usersThatLike")
+     * @ORM\JoinTable(name="likes")
      */
     private $likedVideos;
 
@@ -70,6 +71,11 @@ class User implements UserInterface
      * @ORM\JoinTable(name="dislikes")
      */
     private $dislikedVideos;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Subscription", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $subscription;
 
     public function __construct()
     {
@@ -155,6 +161,18 @@ class User implements UserInterface
         // $this->plainPassword = null;
     }
 
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
     public function getLastName(): ?string
     {
         return $this->last_name;
@@ -175,18 +193,6 @@ class User implements UserInterface
     public function setVimeoApiKey(?string $vimeo_api_key): self
     {
         $this->vimeo_api_key = $vimeo_api_key;
-
-        return $this;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
 
         return $this;
     }
@@ -243,6 +249,18 @@ class User implements UserInterface
             $this->dislikedVideos->removeElement($dislikedVideo);
             $dislikedVideo->removeUsersThatDontLike($this);
         }
+
+        return $this;
+    }
+
+    public function getSubscription(): ?Subscription
+    {
+        return $this->subscription;
+    }
+
+    public function setSubscription(?Subscription $subscription): self
+    {
+        $this->subscription = $subscription;
 
         return $this;
     }
