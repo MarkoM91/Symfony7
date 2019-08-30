@@ -1,9 +1,5 @@
 <?php
-/*
-|--------------------------------------------------------
-| copyright netprogs.pl | available only at Udemy.com | further distribution is prohibited  ***
-|--------------------------------------------------------
-*/
+
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -18,7 +14,7 @@ class Video
 {
     public const videoForNotLoggedIn = 113716040; // vimeo id
     public const VimeoPath = 'https://player.vimeo.com/video/';
-    public const perPage = 5; // for pagination
+    public const perPage = 5; // for pagination the default numberof pagination is 5;
 
     /**
      * @ORM\Id()

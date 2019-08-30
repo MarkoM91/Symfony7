@@ -6,6 +6,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Video;
 use App\Entity\Category;
+use App\Entity\User;
 
 class VideoFixtures extends Fixture
 {
@@ -24,11 +25,45 @@ class VideoFixtures extends Fixture
         }
 
         $manager->flush();
+        $this->loadLikes($manager);
+        $this->loadDislikes($manager);
+    }
+
+    public function loadLikes($manager)
+    {
+        foreach($this->likesData() as [$video_id, $user_id])
+        {
+
+            $video = $manager->getRepository(Video::class)->find($video_id);
+            $user = $manager->getRepository(User::class)->find($user_id);
+
+            $video->addUsersThatLike($user);
+            $manager->persist($video);
+        }
+
+            $manager->flush();
+
+    }
+
+    public function loadDislikes($manager)
+    {
+        foreach($this->dislikesData() as [$video_id, $user_id])
+        {
+
+            $video = $manager->getRepository(Video::class)->find($video_id);
+            $user = $manager->getRepository(User::class)->find($user_id);
+
+            $video->addUsersThatDontLike($user);
+            $manager->persist($video);
+        }
+
+        $manager->flush();
+
     }
 
     private function VideoData()
     {
-        return [ //I returned a nested array;
+        return [
 
             ['Movies 1',289729765,4],
             ['Movies 2',238902809,4],
@@ -55,6 +90,38 @@ class VideoFixtures extends Fixture
             ['Toys  4',289729765,2],
             ['Toys  5',289729765,2],
             ['Toys  6',289729765,2]
+
+        ];
+    }
+
+    private function likesData()
+    {
+            return [
+
+                [12,1],
+                [12,2],
+                [12,3],
+
+                [11,1],
+                [11,2],
+
+                [1,1],
+                [1,2],
+                [1,3],
+
+                [2,1],
+                [2,2]
+
+            ];
+    }
+
+    private function dislikesData()
+    {
+        return [
+
+            [10,1],
+            [10,2],
+            [10,3]
 
         ];
     }

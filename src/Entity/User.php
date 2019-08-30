@@ -67,8 +67,7 @@ class User implements UserInterface
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Video", mappedBy="usersThatDontLike")
-     * @ORM\Join(name="dislikes")
-
+     * @ORM\JoinTable(name="dislikes")
      */
     private $dislikedVideos;
 
