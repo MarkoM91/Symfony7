@@ -73,9 +73,14 @@ class User implements UserInterface
     private $dislikedVideos;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Subscription", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="App\Entity\Subscription", cascade={"persist", "remove"})
      */
     private $subscription;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Subscription", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+
 
     public function __construct()
     {
@@ -264,4 +269,6 @@ class User implements UserInterface
 
         return $this;
     }
+
+
 }
