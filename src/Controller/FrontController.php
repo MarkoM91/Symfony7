@@ -7,11 +7,14 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Category;
 use App\Entity\Video;
 use App\Entity\User;
+use App\Form\UserType;
 use App\Utils\CategoryTreeFrontPage;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Acme\DemoBundle\Form\DataTransformer\StringToArrayTransformer;
+
 
 
 
@@ -91,7 +94,7 @@ class FrontController extends AbstractController
     {
         $user = new User; //new instance object User;
         $form = $this->createForm(UserType::class, $user); //user entity strongly tied to User class responsible for html form;
-        $form-handleRequest($request);
+        $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
         {
@@ -155,6 +158,7 @@ class FrontController extends AbstractController
 
     private function loginUserAutomatically($user, $password)
     {
+        $transformer = new StringToArrayTransformer();
         $token = new UsernamePasswordToken(
             $user,
             $password,
