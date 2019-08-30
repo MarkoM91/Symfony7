@@ -71,14 +71,14 @@ class Comment
      */
     public function setCreatedAt(): self //is going to be called authomatically before a new comment is saved in our database,// i don't need to create this data manually;
     {
-        if(isset($this->created_at2))
+        if(isset($this->created_at2)) //date at which comment was created
         $this->created_at = $this->created_at2;
         else
         $this->created_at = new \DateTime();
         return $this;
     }
 
-    public function setCreatedAtForFixtures($created_at): self
+    public function setCreatedAtForFixtures($created_at): self //different dates of creating comments
     {
         $this->created_at2 = $created_at;
 

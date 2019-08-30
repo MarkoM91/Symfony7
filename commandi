@@ -112,3 +112,5 @@ php bin/console security:check
 php bin/console make:form
 
 //Comments
+
+composer require knplabs/knp-time-bundle //object get converted into string

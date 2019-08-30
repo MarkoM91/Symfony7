@@ -102,6 +102,9 @@
     "knplabs/knp-paginator-bundle": {
         "version": "v4.0.0"
     },
+    "knplabs/knp-time-bundle": {
+        "version": "v1.9.1"
+    },
     "nikic/php-parser": {
         "version": "v4.2.3"
     },
@@ -364,6 +367,9 @@
         "version": "v1.1.5"
     },
     "symfony/stopwatch": {
+        "version": "v4.3.4"
+    },
+    "symfony/templating": {
         "version": "v4.3.4"
     },
     "symfony/test-pack": {

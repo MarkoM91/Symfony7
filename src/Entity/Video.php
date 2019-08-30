@@ -6,13 +6,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index as Index;
-
 /**
  * @ORM\Entity(repositoryClass="App\Repository\VideoRepository")
  * @ORM\Table(name="videos", indexes={@Index(name="title_idx", columns={"title"})})
  */
 class Video
 {
+    public const videoForNotLoggedIn = 113716040; // vimeo id
+    public const VimeoPath = 'https://player.vimeo.com/video/';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -31,13 +33,12 @@ class Video
     private $path;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $duration;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="videos", )
-     * @ORM\JoinColumn(name="category_id", referencedColumnName="id", onDelete="CASCADE" )
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="videos")
      */
     private $category;
 
@@ -80,12 +81,21 @@ class Video
         return $this;
     }
 
+    public function getVimeoId($user): ?string
+    {
+        if($user) //if the user is logged IN I Return path to the video;
+        {
+            return $this->path;
+        }
+       else return self::VimeoPath.self::videoForNotLoggedIn; //else placeholdervideo;
+    }
+
     public function getDuration(): ?int
     {
         return $this->duration;
     }
 
-    public function setDuration(int $duration): self
+    public function setDuration(?int $duration): self
     {
         $this->duration = $duration;
 

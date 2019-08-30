@@ -21,7 +21,7 @@ class VideoRepository extends ServiceEntityRepository
         $this->paginator = $paginator;
     }
 
-    public function findByChildIds($value, int $page, ?string $sort_method)
+    public function findByChildIds(array $value, int $page, ?string $sort_method)
     {
         $sort_method = $sort_method != 'rating' ? $sort_method : 'ASC'; // tmp
 
@@ -54,6 +54,19 @@ class VideoRepository extends ServiceEntityRepository
             ->getQuery();
 
         return $this->paginator->paginate($dbquery, $page, 5);
+    }
+
+    public function videoDetails($id)
+    {
+        //dump($repo->videoDetails($video));
+        return $this->createQueryBuilder('v')
+            ->leftJoin('v.comments', 'c')
+            ->leftJoin('c.user', 'u')
+            ->addSelect('c', 'u') //responsible fo eager loading, with one query I will have video.title,  and all of its comments;
+            ->where('v.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
     private function prepareQuery(string $query): array
