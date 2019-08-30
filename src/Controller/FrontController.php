@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Acme\DemoBundle\Form\DataTransformer\StringToArrayTransformer;
 
 
 
@@ -158,7 +157,6 @@ class FrontController extends AbstractController
 
     private function loginUserAutomatically($user, $password)
     {
-        $transformer = new StringToArrayTransformer();
         $token = new UsernamePasswordToken(
             $user,
             $password,
