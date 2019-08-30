@@ -1,5 +1,9 @@
 <?php
-
+/*
+|--------------------------------------------------------
+| copyright netprogs.pl | available only at Udemy.com | further distribution is prohibited  ***
+|--------------------------------------------------------
+*/
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -7,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
  * @ORM\Table(name="comments")
- * @ORM\HasLyfecicleCallbacks()
+ *  @ORM\HasLifecycleCallbacks()
  */
 class Comment
 {
@@ -65,11 +69,18 @@ class Comment
     /**
      * @ORM\PrePersist
      */
-
-    public function setCreatedAt(\DateTimeInterface $created_at): self //is going to be called authomatically before a new comment is saved in our database,
-                                                                      // i don't need to create this data manually;
+    public function setCreatedAt(): self //is going to be called authomatically before a new comment is saved in our database,// i don't need to create this data manually;
     {
-        $this->created_at = $created_at;
+        if(isset($this->created_at2))
+        $this->created_at = $this->created_at2;
+        else
+        $this->created_at = new \DateTime();
+        return $this;
+    }
+
+    public function setCreatedAtForFixtures($created_at): self
+    {
+        $this->created_at2 = $created_at;
 
         return $this;
     }
