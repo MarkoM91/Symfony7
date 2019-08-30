@@ -100,3 +100,13 @@ php bin/console make:user
 * reset DB
 
 *fixtures
+
+//security checker
+
+composer require sensiolabs/security-checker
+
+php bin/console security:check
+
+//user registrartion
+
+php bin/console make:form

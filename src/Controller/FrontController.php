@@ -6,9 +6,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Category;
 use App\Entity\Video;
+use App\Entity\User;
 use App\Utils\CategoryTreeFrontPage;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 
 
@@ -84,9 +87,34 @@ class FrontController extends AbstractController
     /**
      * @Route("/register", name="register")
      */
-    public function register()
+    public function register(Request $request, UserPasswordEncoderInterface $password_encoder)//request store get and post data; In order that  passwords in our DB are stored in encoded form and not as plain text,
     {
-        return $this->render('front/register.html.twig');
+        $user = new User; //new instance object User;
+        $form = $this->createForm(UserType::class, $user); //user entity strongly tied to User class responsible for html form;
+        $form-handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+          $entityManager = $this->getDoctrine()->getManager(); //thanks to it we can save data on our DB;
+
+          $user->setName($request->request->get('user')['name']);
+          $user->setLastName($request->request->get('user')['last_name']);
+          $user->setEmail($request->request->get('user')['email']);
+          $password = $password_encoder->encodePassword($user, $request->request->get('user')['password']['first']);
+          $user->setPassword($password);
+          $user->setRoles(['ROLE_USER']);
+
+          $entityManager->persist($user);
+          $entityManager->flush();
+
+          $this->loginUserAutomatically($user, $password); //this metod will set user in session;
+
+          return $this->redirectToRoute('admin_main_page');
+        }
+
+        return $this->render('front/register.html.twig', [
+          'form'=>$form->createView()
+        ]);
     }
 
     /**
@@ -123,5 +151,17 @@ class FrontController extends AbstractController
         return $this->render('front/_main_categories.html.twig',[
             'categories'=>$categories
         ]);
+    }
+
+    private function loginUserAutomatically($user, $password)
+    {
+        $token = new UsernamePasswordToken(
+            $user,
+            $password,
+            'main', // security.yaml
+            $user->getRoles()
+        );
+        $this->get('security.token_storage')->setToken($token);
+        $this->get('session')->set('_security_main',serialize($token)); //saving token in the session; if the token exist in the session it means that a user is logged in;
     }
 }
