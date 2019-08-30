@@ -7,7 +7,6 @@
 <h2>My liked videos</h2>
 {% endif %}
 
-
 <div class="table-responsive">
   <table class="table table-striped table-sm">
     <thead>
@@ -18,33 +17,36 @@
         {% if is_granted('ROLE_ADMIN') %}
         <th>Category</th>
         <th>Delete</th>
-      {% endif %}
-
+         {% endif %}
       </tr>
     </thead>
     <tbody>
-        {% for i in 1..10 %}
+        {% for video in videos %}
       <tr>
-        <td>{{i}}</td>
-        <td>Video name</td>
-        <td><a target="_blank" href="http://vimeo.com">go to video</a></td>
-        {% if is_granted('ROLE_ADMIN') %}
+        <td>{{ loop.index }}</td>
+        <td>{{video.title}}</td>
+        <td><a target="_blank" href="{{path('video_details',{'video':video.id})}}">go to video</a></td>
+         {% if is_granted('ROLE_ADMIN') %}
         <td>
             <form action="#" method="POST">
                 <select onchange="this.form.submit();">
-                  <option selected>Parent...</option>
-
+                <option selected>Parent...</option>
+                <option value="1">Funny</option>
+                <option value="1">--For kids</option>
+                <option value="1">----For adults</option>
+                <option value="2">Scary</option>
+                <option value="3">Motivating</option>
                 </select>
             </form>
         </td>
         <td><a href="#" onclick="delete_video(event,2);"><i class="fas fa-trash"></i></a></td>
-      {% endif %}
-
+        {% endif %}
       </tr>
         {% endfor %}
     </tbody>
   </table>
 </div>
+{% endblock %}
 {% block customjavascripts %}
 {{parent()}}
 <script>
@@ -59,6 +61,4 @@
         }
     }
 </script>
-{% endblock %}
-
 {% endblock %}
