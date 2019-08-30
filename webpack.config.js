@@ -12,9 +12,11 @@ Encore
 
     .setPublicPath('/build')
 
-    .addEntry('js/app.js', './assets/js/app.js')
-    .addStyleEntry('css/dashboard', '[./assets/css/dashboard.css]')
-    .addStyleEntry('css/login', '[./assets/css/login.css]')
+    .addEntry('js/likes', './assets/js/likes.js')
+    .addStyleEntry('css/dashboard', ['./assets/css/dashboard.css'])
+    .addStyleEntry('css/app.css', ['./assets/css/app.css'])
+    .addStyleEntry('css/login', ['./assets/css/login.css'])
+    .addStyleEntry('css/likes', ['./assets/css/likes.css'])
 
     .splitEntryChunks()
 

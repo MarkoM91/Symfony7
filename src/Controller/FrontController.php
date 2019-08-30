@@ -70,8 +70,8 @@ class FrontController extends AbstractController
 
             $comment = new Comment();
             $comment->setContent($request->request->get('comment'));
-            $comment->setUser($this->getUser()); //user the comments belongs to;
-            $comment->setVideo($video); //symfony will find the video using parama converter
+            $comment->setUser($this->getUser());
+            $comment->setVideo($video);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
@@ -187,5 +187,79 @@ class FrontController extends AbstractController
         );
         $this->get('security.token_storage')->setToken($token);
         $this->get('session')->set('_security_main',serialize($token));
+    }
+
+        /**
+     * @Route("/video-list/{video}/like", name="like_video", methods={"POST"})
+     * @Route("/video-list/{video}/dislike", name="dislike_video", methods={"POST"})
+     * @Route("/video-list/{video}/unlike", name="undo_like_video", methods={"POST"})
+     * @Route("/video-list/{video}/undodislike", name="undo_dislike_video", methods={"POST"})
+     */
+    public function toggleLikesAjax(Video $video, Request $request)
+    {
+
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
+        switch($request->get('_route'))
+        {
+            case 'like_video':
+            $result = $this->likeVideo($video);
+            break;
+
+            case 'dislike_video':
+            $result = $this->dislikeVideo($video);
+            break;
+
+            case 'undo_like_video':
+            $result = $this->undoLikeVideo($video);
+            break;
+
+            case 'undo_dislike_video':
+            $result = $this->undoDislikeVideo($video);
+            break;
+        }
+
+        return $this->json(['action' => $result,'id'=>$video->getId()]);
+    }
+
+    private function likeVideo($video)
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->find($this->getUser());
+        $user->addLikedVideo($video);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+        return 'liked';
+    }
+    private function dislikeVideo($video)
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->find($this->getUser());
+        $user->addDislikedVideo($video);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+        return 'disliked';
+    }
+    private function undoLikeVideo($video)
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->find($this->getUser());
+        $user->removeLikedVideo($video);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+        return 'undo liked';
+    }
+    private function undoDislikeVideo($video)
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->find($this->getUser());
+        $user->removeDislikedVideo($video);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+        return 'undo disliked';
     }
 }

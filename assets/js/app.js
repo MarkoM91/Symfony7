@@ -1,4 +1,7 @@
 var $ = require('jquery');
 
-require('@fortawesome/fontawesome-free/css/all.min.css');
-require('@fortawesome/fontawesome-free/js/all.js');
+function init() {
+console.log('ok');
+}
+
+$(document).ready(init);
