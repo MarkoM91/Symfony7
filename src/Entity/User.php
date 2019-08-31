@@ -73,14 +73,9 @@ class User implements UserInterface
     private $dislikedVideos;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Subscription", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Subscription", cascade={"persist", "remove"}, orphanRemoval=true) // if I remove user symfony deletes subscription automathically by the doctrine and symfony saves the changes;
      */
     private $subscription;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Subscription", cascade={"persist", "remove"}, orphanRemoval=true)
-     */
-
 
     public function __construct()
     {
@@ -269,6 +264,4 @@ class User implements UserInterface
 
         return $this;
     }
-
-
 }

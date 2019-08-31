@@ -1,10 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block customstylesheets %}
-{{parent()}}
-{% if app.user %}
-<link rel="stylesheet" href="{{asset('assets/css/likes.css')}}">
-{% endif %}
+
 {% endblock %}
 
 {% block main %}
