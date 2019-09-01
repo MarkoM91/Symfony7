@@ -1,9 +1,5 @@
 <?php
-/*
-|--------------------------------------------------------
-| copyright netprogs.pl | available only at Udemy.com | further distribution is prohibited  ***
-|--------------------------------------------------------
-*/
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -34,13 +30,13 @@ class Comment
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, name="user_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Video", inversedBy="comments")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, name="video_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $video;
 
@@ -69,16 +65,16 @@ class Comment
     /**
      * @ORM\PrePersist
      */
-    public function setCreatedAt(): self //is going to be called authomatically before a new comment is saved in our database,// i don't need to create this data manually;
+    public function setCreatedAt(): self
     {
-        if(isset($this->created_at2)) //date at which comment was created
+        if(isset($this->created_at2))
         $this->created_at = $this->created_at2;
         else
         $this->created_at = new \DateTime();
         return $this;
     }
 
-    public function setCreatedAtForFixtures($created_at): self //different dates of creating comments
+    public function setCreatedAtForFixtures($created_at): self
     {
         $this->created_at2 = $created_at;
 
