@@ -4,6 +4,11 @@ namespace App\Controller\Admin\SuperAdmin;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+
+use App\Entity\User;
+use App\Entity\Video;
+use App\Form\VideoType;
 
 
 /**
@@ -13,11 +18,35 @@ class SuperAdminController extends AbstractController
 {
 
     /**
-     * @Route("/upload-video", name="upload_video")
-     */
-    public function uploadVideo()
+    * @Route("/upload-video-locally", name="upload_video")
+    */
+    public function uploadVideoLocally(Request $request)
     {
-        return $this->render('admin/upload_video.html.twig');
+        $video = new Video();
+        $form = $this->createForm(VideoType::class, $video);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+
+            $file = $video->getUploadedVideo();
+            $fileName = 'to do';
+
+            $base_path = Video::uploadFolder;
+            $video->setPath($base_path.$fileName);
+            $video->setTitle($fileName);
+
+            $em->persist($video);
+            $em->flush();
+
+            return $this->redirectToRoute('videos');
+        }
+
+
+        return $this->render('admin/upload_video_locally.html.twig',[
+            'form' => $form->createView()
+        ]);
     }
 
     /**
@@ -25,8 +54,23 @@ class SuperAdminController extends AbstractController
      */
     public function users()
     {
-        return $this->render('admin/users.html.twig');
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $users = $repository->findBy([], ['name' => 'ASC']);
+        return $this->render('admin/users.html.twig',['users'=>$users]);
     }
+
+
+    /**
+     * @Route("/delete-user/{user}", name="delete_user")
+     */
+    public function deleteUser(User $user)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($user);
+        $manager->flush();
+
+        return $this->redirectToRoute('users');
+     }
 
 
 }
