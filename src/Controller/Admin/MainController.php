@@ -35,9 +35,9 @@ class MainController extends AbstractController
      */
     public function cancelPlan()
     {
-        $user = $this->getDoctrine()->getRepository(User::class)->find($this->getUser());
+        $user = $this->getDoctrine()->getRepository(User::class)->find($this->getUser()); //find currently logged in user who has some subscription to cancel;
 
-        $subscription = $user->getSubscription();
+        $subscription = $user->getSubscription(); //if i have the user I can get his subscription;
         $subscription->setValidTo(new \Datetime());
         $subscription->setPaymentStatus(null);
         $subscription->setPlan('canceled');
