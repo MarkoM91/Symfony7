@@ -9,11 +9,10 @@ use App\Entity\Video;
 use App\Repository\VideoRepository;
 use App\Utils\CategoryTreeFrontPage;
 use Symfony\Component\HttpFoundation\Request;
-
 use App\Entity\Comment;
-
 use App\Controller\Traits\Likes;
 use App\Utils\VideoForNoValidSubscription;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class FrontController extends AbstractController
 {
@@ -43,7 +42,7 @@ class FrontController extends AbstractController
         return $this->render('front/video_list.html.twig',[
             'subcategories' => $categories,
             'videos'=>$videos,
-            'video_no_members' => $video_no_members->check() // c_88
+            'video_no_members' => $video_no_members->check()
         ]);
     }
 
@@ -83,6 +82,21 @@ class FrontController extends AbstractController
 
         return $this->redirectToRoute('video_details',['video'=>$video->getId()]);
      }
+
+    /**
+    * @Route("/delete-comment/{comment}", name="delete_comment")
+    * @Security("user.getId() == comment.getUser().getId()")
+    */
+    public function deleteComment(Comment $comment, Request $request)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($comment);
+        $em->flush();
+
+        return $this->redirect($request->headers->get('referer'));
+    }
 
     /**
      * @Route("/search-results/{page}", methods={"GET"}, defaults={"page": "1"}, name="search_results")
@@ -150,5 +164,6 @@ class FrontController extends AbstractController
 
         return $this->json(['action' => $result,'id'=>$video->getId()]);
     }
+
 
 }
