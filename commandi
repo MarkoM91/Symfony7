@@ -120,3 +120,4 @@ composer require knplabs/knp-time-bundle //object get converted into string
 //email
 
 composer require symfony/swiftmailer-bundle
+php bin/console swiftmailer:spool:send --message-limit=10
