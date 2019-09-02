@@ -3,6 +3,7 @@
 
 <h2>My profile <small><a onclick="return confirm('Are you sure?');" href="{{path('delete_account')}}">delete account</a></small></h2>
 
+
 {% if not is_granted('ROLE_ADMIN') and subscription and subscription.getPlan in subscription.getPlanDataNames %}
 
     <p class="text-left">My plan - {{subscription.getPlan|upper}}. <b>valid to:</b> {{subscription.validTo|date('Y-m-d')}}
@@ -23,8 +24,7 @@
 {% if is_granted('ROLE_ADMIN') %}
     <div class="form-group">
 
-        <label for="user_vimeo_api_key">Vimeo API key</label>
-        {{ form_widget(form.vimeo_api_key) }} {# c_98 #}
+      
 
     </div>
 {% endif %}

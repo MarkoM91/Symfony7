@@ -4,11 +4,13 @@ namespace App\Controller\Admin;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 use App\Utils\CategoryTreeAdminOptionList;
 
 use App\Entity\Video;
 use App\Entity\User;
+use App\Form\UserType;
 
 // use Symfony\Bundle\FrameworkBundle\Tests\Fixtures\Validation\Category;
 
@@ -23,11 +25,40 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="admin_main_page")
      */
-    public function index()
+    public function index(Request $request)
     {
+
+        $user = $this->getUser();
+        $form = $this->createForm(UserType::class, $user,['user'=>$user]);
+        $form->handleRequest($request);
+        $is_invalid = null;
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            exit('valid');
+        }
+
+
         return $this->render('admin/my_profile.html.twig', [
-            'subscription' => $this->getUser()->getSubscription()
+            'subscription' => $this->getUser()->getSubscription(),
+            'form'=>$form->createView(),
+            'is_invalid' => $is_invalid
         ]);
+    }
+
+    /**
+     * @Route("/delete-account", name="delete_account")
+     */
+    public function deleteAccount()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository(User::class)->find($this->getUser());
+
+        $em->remove($user);
+        $em->flush();
+
+        session_destroy();
+
+        return $this->redirectToRoute('main_page');
     }
 
     /**
@@ -35,9 +66,9 @@ class MainController extends AbstractController
      */
     public function cancelPlan()
     {
-        $user = $this->getDoctrine()->getRepository(User::class)->find($this->getUser()); //find currently logged in user who has some subscription to cancel;
+        $user = $this->getDoctrine()->getRepository(User::class)->find($this->getUser());
 
-        $subscription = $user->getSubscription(); //if i have the user I can get his subscription;
+        $subscription = $user->getSubscription();
         $subscription->setValidTo(new \Datetime());
         $subscription->setPaymentStatus(null);
         $subscription->setPlan('canceled');
