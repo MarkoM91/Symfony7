@@ -54,6 +54,8 @@ class SecurityController extends AbstractController
             $session->set('planPrice', Subscription::getPlanDataPriceByName($plan));
         }
 
+    
+
         $user = new User;
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
