@@ -1,9 +1,5 @@
 <?php
-/*
-|--------------------------------------------------------
-| copyright netprogs.pl | available only at Udemy.com | further distribution is prohibited  ***
-|--------------------------------------------------------
-*/
+
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,6 +11,7 @@ use App\Entity\Subscription;
 
 class SubscriptionController extends AbstractController
 {
+
 
     /**
      * @Route("/pricing", name="pricing")
@@ -30,9 +27,19 @@ class SubscriptionController extends AbstractController
     /**
      * @Route("/payment", name="payment")
      */
-    public function payment()
+    public function payment(SessionInterface $session)
     {
-        return $this->render('front/payment.html.twig');
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
+        if($session->get('planName') == 'enterprise')
+        {
+            $subscribe = Subscription::EnterprisePlan;
+        }
+        else
+         {
+            $subscribe = Subscription::ProPlan;
+         }
+        return $this->render('front/payment.html.twig',['subscribe'=>$subscribe]);
     }
 
 }
