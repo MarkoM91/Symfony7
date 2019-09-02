@@ -27,7 +27,6 @@ class MainController extends AbstractController
      */
     public function index(Request $request, UserPasswordEncoderInterface $password_encoder)
     {
-
         $user = $this->getUser();
         $form = $this->createForm(UserType::class, $user,['user'=>$user]);
         $form->handleRequest($request);
@@ -35,11 +34,13 @@ class MainController extends AbstractController
         if ($form->isSubmitted() && $form->isValid())
         {
             $entityManager = $this->getDoctrine()->getManager();
+
             $user->setName($request->request->get('user')['name']);
             $user->setLastName($request->request->get('user')['last_name']);
             $user->setEmail($request->request->get('user')['email']);
             $password = $password_encoder->encodePassword($user, $request->request->get('user')['password']['first']);
             $user->setPassword($password);
+
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -100,32 +101,26 @@ class MainController extends AbstractController
     /**
      * @Route("/videos", name="videos")
      */
-    public function videos()
+    public function videos(CategoryTreeAdminOptionList $categories)
     {
 
         if ($this->isGranted('ROLE_ADMIN'))
         {
-            $videos = $this->getDoctrine()->getRepository(Video::class)->findAll();
+
+            $categories->getCategoryList($categories->buildTree());
+            $videos = $this->getDoctrine()->getRepository(Video::class)->findBy([],['title'=>'ASC']);
+
         }
         else
         {
+            $categories = null;
             $videos = $this->getUser()->getLikedVideos();
         }
 
         return $this->render('admin/videos.html.twig',[
-            'videos'=>$videos
+            'videos'=>$videos,
+            'categories'=>$categories
         ]);
     }
-
-
-
-    public function getAllCategories(CategoryTreeAdminOptionList $categories, $editedCategory = null)
-    {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
-        $categories->getCategoryList($categories->buildTree());
-        return $this->render('admin/_all_categories.html.twig',['categories'=>$categories,'editedCategory'=>$editedCategory]);
-    }
-
 
 }
