@@ -1,10 +1,6 @@
 <?php
-/*
-|-----------------------------------------------------------
-| available only at Udemy.com | copyright netprogs.pl | further distribution is prohibited
-|-----------------------------------------------------------
-*/
-namespace App\Controller\Admin\Superadmin;
+
+namespace App\Controller\Admin\SuperAdmin;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,8 +18,9 @@ use App\Form\VideoType;
 class SuperAdminController extends AbstractController
 {
 
+
     /**
-    * @Route("/upload-video-locally", name="upload_video")
+    * @Route("/upload-video-locally", name="upload_video_locally")
     */
     public function uploadVideoLocally(Request $request, UploaderInterface $fileUploader)
     {
