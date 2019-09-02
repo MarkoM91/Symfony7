@@ -1,44 +1,26 @@
 <?php
 
-namespace App\Tests;
+namespace App\Form;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpFoundation\Response;
+use App\Entity\Video;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
-class AdminControllerSecurityTest extends WebTestCase
+class VideoType extends AbstractType
 {
-    /**
-     * @dataProvider getUrlsForRegularUsers
-     */
-    public function testAccessDeniedForRegularUsers(string $httpMethod, string $url)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $client = static::createClient([], [
-            'PHP_AUTH_USER' => 'jd@symf4.loc',
-            'PHP_AUTH_PW' => 'passw',
-        ]);
-
-        $client->request($httpMethod, $url);
-        $this->assertSame(Response::HTTP_FORBIDDEN, $client->getResponse()->getStatusCode());
+        $builder
+            ->add('uploaded_video',FileType::class);
+        ;
     }
 
-    public function getUrlsForRegularUsers()
+    public function configureOptions(OptionsResolver $resolver)
     {
-        yield ['GET', '/admin/su/categories'];
-        yield ['GET', '/admin/su/edit-category/1'];
-        yield ['GET', '/admin/su/delete-category/1'];
-        yield ['GET', '/admin/su/users'];
-        yield ['GET', '/admin/su/upload-video-locally'];
-    }
-
-    public function testAdminSu()
-    {
-        $client = static::createClient([], [
-            'PHP_AUTH_USER' => 'jw@symf4.loc',
-            'PHP_AUTH_PW' => 'passw',
+        $resolver->setDefaults([
+            'data_class' => Video::class,
         ]);
-
-        $crawler = $client->request('GET', '/admin/su/categories');
-
-        $this->assertSame('Categories list', $crawler->filter('h2')->text());
     }
 }

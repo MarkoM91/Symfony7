@@ -1,10 +1,15 @@
 <?php
-
-namespace App\Controller\Admin\SuperAdmin;
+/*
+|-----------------------------------------------------------
+| available only at Udemy.com | copyright netprogs.pl | further distribution is prohibited
+|-----------------------------------------------------------
+*/
+namespace App\Controller\Admin\Superadmin;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use App\Utils\Interfaces\UploaderInterface;
 
 use App\Entity\User;
 use App\Entity\Video;
@@ -20,7 +25,7 @@ class SuperAdminController extends AbstractController
     /**
     * @Route("/upload-video-locally", name="upload_video")
     */
-    public function uploadVideoLocally(Request $request)
+    public function uploadVideoLocally(Request $request, UploaderInterface $fileUploader)
     {
         $video = new Video();
         $form = $this->createForm(VideoType::class, $video);
@@ -31,11 +36,11 @@ class SuperAdminController extends AbstractController
             $em = $this->getDoctrine()->getManager();
 
             $file = $video->getUploadedVideo();
-            $fileName = 'to do';
+            $fileName = $fileUploader->upload($file);
 
             $base_path = Video::uploadFolder;
-            $video->setPath($base_path.$fileName);
-            $video->setTitle($fileName);
+            $video->setPath($base_path.$fileName[0]);
+            $video->setTitle($fileName[1]);
 
             $em->persist($video);
             $em->flush();

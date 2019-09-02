@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AdminControllerSecurityTest extends WebTestCase
 {
-        /**
+    /**
      * @dataProvider getUrlsForRegularUsers
      */
     public function testAccessDeniedForRegularUsers(string $httpMethod, string $url)
@@ -17,7 +17,7 @@ class AdminControllerSecurityTest extends WebTestCase
             'PHP_AUTH_PW' => 'passw',
         ]);
 
-        $client->request($httpMethod, $url); //If a regular user try to access su/admin get stopped
+        $client->request($httpMethod, $url);
         $this->assertSame(Response::HTTP_FORBIDDEN, $client->getResponse()->getStatusCode());
     }
 
@@ -27,7 +27,7 @@ class AdminControllerSecurityTest extends WebTestCase
         yield ['GET', '/admin/su/edit-category/1'];
         yield ['GET', '/admin/su/delete-category/1'];
         yield ['GET', '/admin/su/users'];
-        yield ['GET', '/admin/su/upload-video'];
+        yield ['GET', '/admin/su/upload-video-locally'];
     }
 
     public function testAdminSu()

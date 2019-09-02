@@ -50,11 +50,14 @@ class SecurityController extends AbstractController
 
         if( $request->isMethod('GET')  )
         {
+          if ( is_null($plan)) {
+            $plan = 'free';
+          }
             $session->set('planName',$plan);
             $session->set('planPrice', Subscription::getPlanDataPriceByName($plan));
         }
 
-    
+
 
         $user = new User;
         $form = $this->createForm(UserType::class, $user);
