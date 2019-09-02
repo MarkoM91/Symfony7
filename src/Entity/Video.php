@@ -1,9 +1,5 @@
 <?php
-/*
-|-----------------------------------------------------------
-| available only at Udemy.com | copyright netprogs.pl | further distribution is prohibited
-|-----------------------------------------------------------
-*/
+
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -18,9 +14,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Video
 {
 
-    public const videoForNotLoggedInOrNoMembers = 113716040;
+    public const videoForNotLoggedInOrNoMembers = 'https://player.vimeo.com/video/113716040';
     public const VimeoPath = 'https://player.vimeo.com/video/';
-    public const perPage = 5;
+    public const perPage = 5; // for pagination
     public const uploadFolder = '/uploads/videos/';
 
     /**
@@ -110,10 +106,15 @@ class Video
         return $this;
     }
 
-
-    public function getVimeoId(): ?string
+    public function getVimeoId()
     {
-        return $this->path;
+        if( strpos($this->path, self::uploadFolder) !==false )
+        {
+            return $this->path;
+        }
+
+        $array = explode('/',$this->path);
+        return end($array);
     }
 
     public function getDuration(): ?int
